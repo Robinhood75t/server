@@ -4,23 +4,22 @@ require('dotenv').config();
 const router = require('./routes');
 
 const app = express();
-app.use(express.json());
 
-// ✅ Updated CORS
+// ✅ Allow CORS for your *actual domain* in production:
 app.use(cors({
   origin: [
-    'http://127.0.0.1:5500',
-    'http://localhost:5500',
-    'https://brandscaler.com'
+    'https://brandscalar.com', 
+    'http://brandscalar.com'
   ],
   credentials: true
 }));
 
-// ✅ API routes
+app.use(express.json());
 app.use('/api', router);
 
-// ✅ Correct port for Render
+// ✅ Use environment port or fallback:
 const port = process.env.PORT || 4000;
+
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`✅ Server is running on port ${port}`);
 });
